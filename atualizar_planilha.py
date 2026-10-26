@@ -1,0 +1,298 @@
+import requests
+import json
+
+url = "https://script.google.com/macros/s/AKfycbwaoMB2seAopWUA6CLobSxu1OY7MINEnn6MOTnslBRZuMazMsvdQAc0DJnS3TODnlvy/exec"
+
+linhas = [
+    [
+        "26/10/2026",
+        "Especialista em Growth & Retenção (CRM)",
+        "CRM Bonus",
+        "InHire / Híbrido (SP)",
+        "Estruturação de réguas de retenção, automações, incentivos B2B e jornada de LTV.",
+        "João Gobira — Especialista de CRM, Retenção & LTV.pdf",
+        "98%",
+        "Sólida experiência em jornadas de retenção, réguas de automação e foco total em LTV e CAC.",
+        "Destacar cases de redução de churn e impacto financeiro direto.",
+        '=HYPERLINK("https://crmbonus.inhire.app"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=CRM+Bonus+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Growth & Demand Generation Lead",
+        "GhFly Network",
+        "InHire / Remoto",
+        "Liderança de geração de demanda, funil de aquisição de clientes, mídia de performance e dados.",
+        "João Gobira — Performance & Growth Specialist.pdf",
+        "97%",
+        "Expertise em orquestração de mídia de performance aliada à geração de demanda B2B/B2C.",
+        "Enfatizar governança de mídia paga e otimização contínua de ROAS.",
+        '=HYPERLINK("https://ghfly.inhire.app"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=GhFly+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Gerente de Growth & Aquisição",
+        "V4 Company",
+        "InHire / Remoto",
+        "Gestão de experimentos de growth, otimização de funil comercial, CAC e escala de canais.",
+        "João Gobira — Senior Growth Analyst _ Growth Manager.pdf",
+        "96%",
+        "Perfil focado em experimentação rápida, rigor analítico e liderança de tração.",
+        "Apresentar metodologia de priorização de testes de crescimento.",
+        '=HYPERLINK("https://v4company.inhire.app"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=V4+Company+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Senior SEO & Inbound Specialist",
+        "Resultados Digitais (RD Station)",
+        "Greenhouse / Remoto",
+        "Estratégia de SEO técnico, arquitetura de conteúdo, tração orgânica e autoridade para SaaS.",
+        "João Gobira — Especialista de SEO & CRO Sênior.pdf",
+        "98%",
+        "Domínio completo de SEO técnico, Core Web Vitals e estratégias de aquisição orgânica para software.",
+        "Destacar projetos de grande escala e otimização para motores de IA (GEO).",
+        '=HYPERLINK("https://boards.greenhouse.io/rdstation"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=RD+Station+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista em Geração de Demanda B2B",
+        "Omie",
+        "Lever / Híbrido (SP)",
+        "Pipeline de marketing B2B, testes de tração, sinergia com time de vendas e réguas de nutrição.",
+        "João Gobira — Performance & Growth Specialist.pdf",
+        "96%",
+        "Forte alinhamento com marketing de produto e geração de pipeline qualificado para Inside Sales.",
+        "Demonstrar integração entre campanhas de atração e ferramentas de CRM.",
+        '=HYPERLINK("https://jobs.lever.co/omie"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Omie+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Growth Manager (Product & Activation)",
+        "QuintoAndar",
+        "Greenhouse / Híbrido (SP)",
+        "Product-Led Growth (PLG), ativação de novos usuários na plataforma e otimização de conversão.",
+        "João Gobira — Especialista de Product Marketing & PLG.pdf",
+        "97%",
+        "Visão estratégica de onboarding, fricção zero no produto e táticas de PLG para engajamento.",
+        "Compartilhar experimentos de produto focados em taxa de conversão.",
+        '=HYPERLINK("https://boards.greenhouse.io/quintoandar"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=QuintoAndar+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Head / Lead de SEO & Conteúdo Orgânico",
+        "Loft",
+        "Greenhouse / Remoto",
+        "Liderança da estratégia orgânica, SEO técnico para grande portal e expansão de tráfego qualificado.",
+        "João Gobira — SEO & Growth Senior Specialist.pdf",
+        "97%",
+        "Capacidade de liderar frentes de SEO em plataformas de alto tráfego com foco em conversão final.",
+        "Destacar alinhamento entre produto técnico e time de marketing.",
+        '=HYPERLINK("https://boards.greenhouse.io/loft"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Loft+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista em CRO & Growth de Site",
+        "MadeiraMadeira",
+        "InHire / Remoto",
+        "Otimização contínua de taxa de conversão em e-commerce, testes A/B e UX analytics.",
+        "João Gobira — Especialista de Growth & Site Sênior.pdf",
+        "98%",
+        "Especialização profunda em arquitetura de conversão para e-commerce, testes A/B e comportamento de compra.",
+        "Trazer números de uplift de conversão e melhoria de receita por visitante.",
+        '=HYPERLINK("https://madeiramadeira.inhire.app"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=MadeiraMadeira+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista em CRM & Ciclo de Vida",
+        "PicPay",
+        "Lever / Híbrido (SP)",
+        "Estratégia de fidelização, segmentação em larga escala, automação de réguas e LTV.",
+        "João Gobira — Especialista de CRM, Retenção & LTV.pdf",
+        "96%",
+        "Experiência consolidada em réguas de retenção, mensuração de impacto e segmentação de base.",
+        "Abordar governança de comunicação multicanal (push, email, in-app).",
+        '=HYPERLINK("https://jobs.lever.co/picpay"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=PicPay+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Growth Specialist (Aquisição & Mídia B2B)",
+        "Stark Bank",
+        "Site Oficial / Presencial (SP)",
+        "Escala de tração, aquisição institucional e performance de ponta para contas corporate.",
+        "João Gobira — Head _ Lead de Growth.pdf",
+        "95%",
+        "Perfil maduro para dialogar com clientes de alto ticket e desenhar estratégias de crescimento sustentável.",
+        "Alinhar posicionamento focado em autoridade financeira e sofisticação institucional.",
+        '=HYPERLINK("https://starkbank.com/careers"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Stark+Bank+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Demand Generation & Inbound Lead",
+        "Pipefy",
+        "Lever / Remoto",
+        "Estruturação de pipeline de vendas B2B, automação de inbound e aceleração de leads qualificados.",
+        "João Gobira — Performance & Growth Specialist.pdf",
+        "97%",
+        "Combinação exata de visão de funil B2B, automação e sinergia direta com Inside Sales.",
+        "Apresentar cases com ferramentas como HubSpot e Salesforce.",
+        '=HYPERLINK("https://jobs.lever.co/pipefy"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Pipefy+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Senior SEO Specialist (Content & Tech)",
+        "Rock Content",
+        "Lever / Remoto",
+        "SEO internacional, auditorias técnicas, estratégias de cluster semântico e autoridade de domínio.",
+        "João Gobira — Especialista de SEO & CRO Sênior.pdf",
+        "98%",
+        "Repertório comprovado em SEO técnico, arquitetura de conteúdo e tração orgânica em escala.",
+        "Destacar metodologia de SEO orientada a conversão e leads.",
+        '=HYPERLINK("https://jobs.lever.co/rockcontent"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Rock+Content+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista de Growth Marketing",
+        "Nomad",
+        "Lever / Híbrido (SP)",
+        "Aquisição de novos correntistas globais, testes de tração, parcerias e mídia de performance.",
+        "João Gobira — Senior Growth Analyst _ Growth Manager.pdf",
+        "96%",
+        "Visão analítica de aquisição de usuários, gestão de CAC e otimização de funil de onboarding.",
+        "Enfatizar foco em ativação rápida e conversão de primeiros depósitos.",
+        '=HYPERLINK("https://jobs.lever.co/nomad"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Nomad+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Growth Marketing Manager (Geração de Demanda)",
+        "Conta Simples",
+        "Lever / Híbrido (SP)",
+        "Geração de demanda e tração para cartões corporativos e gestão financeira B2B.",
+        "João Gobira — Head _ Lead de Growth.pdf",
+        "97%",
+        "Capacidade de liderar frentes de receita, posicionamento B2B e alinhamento de marketing e vendas.",
+        "Expor táticas de aceleração de ciclo comercial.",
+        '=HYPERLINK("https://jobs.lever.co/contasimples"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Conta+Simples+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista de Mídia & Performance",
+        "Creditas",
+        "Greenhouse / Híbrido (SP)",
+        "Escala de canais pagos, Google Ads, Meta Ads e otimização avançada de conversão e custo de aquisição.",
+        "João Gobira — Performance & Growth Specialist.pdf",
+        "96%",
+        "Profundo domínio de orçamentos de performance, atribuição multitoque e eficiência de mídia.",
+        "Demonstrar gestão rigorosa de dados de conversão e testes A/B.",
+        '=HYPERLINK("https://boards.greenhouse.io/creditas"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Creditas+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Product Marketing Specialist (PLG & Onboarding)",
+        "Blip",
+        "Lever / Remoto",
+        "Jornada de ativação de produto conversacional, comunicação in-app e product-led growth.",
+        "João Gobira — Especialista de Product Marketing & PLG.pdf",
+        "95%",
+        "Especialização em táticas de ativação, redução de tempo até o primeiro valor (time-to-value) e retenção.",
+        "Destacar sinergia entre times de produto e comunicação.",
+        '=HYPERLINK("https://jobs.lever.co/blip"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Blip+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista de CRM & Ciclo de Vida do Cliente",
+        "Nubank",
+        "Greenhouse / Híbrido (SP)",
+        "Governança de réguas multicanal, personalização orientada a dados e fidelização de milhões de clientes.",
+        "João Gobira — Especialista de CRM, Retenção & LTV.pdf",
+        "98%",
+        "Perfil estratégico e data-driven, pronto para desenhar jornadas complexas e alavancar LTV.",
+        "Apresentar fluência em métricas de retenção e governança de dados.",
+        '=HYPERLINK("https://boards.greenhouse.io/nubank"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Nubank+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista de SEO Técnico & Estrutura Orgânica",
+        "Hashdex",
+        "Lever / Remoto",
+        "Arquitetura de informação, SEO técnico e geração de tráfego de autoridade para ecossistema financeiro.",
+        "João Gobira — SEO & Growth Senior Specialist.pdf",
+        "96%",
+        "Foco em SEO técnico sólido, governança de indexação e autoridade semântica em mercados complexos.",
+        "Demonstrar experiência em estruturação de taxonomias e SEO para plataformas digitais.",
+        '=HYPERLINK("https://jobs.lever.co/hashdex"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Hashdex+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Lead de Growth & Demanda B2B",
+        "Loggi",
+        "Lever / Híbrido (SP)",
+        "Geração de pipeline para contas corporativas e e-commerces, tração multicanal e dados.",
+        "João Gobira — Head _ Lead de Growth.pdf",
+        "97%",
+        "Liderança de funil completo com foco em tração B2B de alto volume e impacto direto na receita.",
+        "Expor cases de alinhamento com áreas comerciais e operacionais.",
+        '=HYPERLINK("https://jobs.lever.co/loggi"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Loggi+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ],
+    [
+        "26/10/2026",
+        "Especialista de CRO & Conversão Digital",
+        "Neon",
+        "Greenhouse / Remoto",
+        "Otimização contínua de taxas de abertura de conta, testes A/B e UX analytics no app e web.",
+        "João Gobira — Especialista de Growth & Site Sênior.pdf",
+        "97%",
+        "Metodologia rigorosa de testes de conversão, redução de fricção e aumento de volume qualificado.",
+        "Apresentar rotina de hipóteses e validação estatística de experimentos.",
+        '=HYPERLINK("https://boards.greenhouse.io/neon"; "Acessar Vaga ↗")',
+        '=HYPERLINK("https://www.linkedin.com/search/results/people/?keywords=Neon+Recrutador"; "Falar com Decisor 👤")',
+        "🟢 A Aplicar"
+    ]
+]
+
+payload = {
+    "action": "limparEAtualizar",
+    "linhas": linhas
+}
+
+headers = {"Content-Type": "application/json"}
+print(f"Enviando {len(linhas)} vagas premium diretamente para a planilha...")
+resp = requests.post(url, data=json.dumps(payload), headers=headers, allow_redirects=True, timeout=30)
+print("Status code:", resp.status_code)
+print("Resposta:", resp.text)
