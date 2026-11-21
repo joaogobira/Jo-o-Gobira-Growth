@@ -1,0 +1,12 @@
+# Repositorio interno versionado a parte
+joaogobiragrowth/
+
+# IDE e sistema
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
